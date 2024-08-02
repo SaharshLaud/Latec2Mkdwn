@@ -1,0 +1,14 @@
+# Gitignore file specifies the files and directories that Git should not track during
+# version control and basically just ignore files like temporary files and other items
+# which are not relevant to the source code.
+# This keeps the repo clean, small in size and easy to manage and navigate focusing on
+# the actual source code.
+
+# Ignore build directory which has many intermediate files
+build/
+
+# Ignore object files created during the compilation process
+*.o
+
+# Ignore log files containing details of program execution
+*.log
