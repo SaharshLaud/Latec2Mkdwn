@@ -3,9 +3,8 @@
 %}
 
 %%
-[0-9]+    { yylval.num = atoi(yytext); return NUMBER; }
-\+        { return PLUS; }
-[ \t\n]   { /* ignore whitespace */ }
+\\textbf       { return BOLD; }
+[ ^\n]+   { /* ignore whitespace */ }
 .         { return yytext[0]; }
 %%
 
