@@ -2,23 +2,26 @@
 /* This section contains parser Tokens and grammar rules. */
 
 %{
+#include <cstdio>
+#include <cstdlib>
+#include "ast.h"
 #include <iostream>
+
 using namespace std;
 extern int yylex();
 void yyerror(const char *s){cerr << "Error: " << s << endl;};
+
+extern Node* root; // This is the root of our AST
 %}
 
 /* We need to define tokens to be able to use them in grammar rules. */
-%token BOLD SECTION ITALIC
+%token SECTION
 
 %%
-input:
-    BOLD { cout << "Token = BOLD" << endl; }
-    | SECTION    { cout << "Token = SECTION" << endl; }
-    | ITALIC     { cout << "Token = ITALIC" << endl; }
+document:
+    section
+;
+section:
+    SECTION    { root = createNode(SECTION_NODE, "# This is a Section");}
     ;
 %%
-
-int main() {
-    return yyparse();
-}

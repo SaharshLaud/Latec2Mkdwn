@@ -4,12 +4,11 @@
 
 %{
 #include "test_parser.tab.h"
+#include <cstdio>
 %}
 
 %%
-\\textbf       { return BOLD; }
 \\section      { return SECTION; }
-\\textit       { return ITALIC; }
 [ ^\n]+   { /* ignore whitespace */ }
 .         { return yytext[0]; }
 %%
