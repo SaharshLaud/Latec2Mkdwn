@@ -28,12 +28,20 @@ int main(int argc, char **argv)
 
     yyparse();
 
-    //Print AST on console
-    cout<<"AST structure:"<<endl;
-    printAST(root);
+    
+    if (root) 
+    {
+        //Print AST on console
+        cout << "AST structure:" << endl;
+        printAST(root);
+        //Traverse AST and write it to output file
+        traverseAST(root, output);
+    } 
+    else 
+    {
+        cerr << "Error: No AST created." << endl;
+    }
 
-    //Traverse AST and write it to output file
-    traverseAST(root, output);
     output.close();
     fclose(input);
 

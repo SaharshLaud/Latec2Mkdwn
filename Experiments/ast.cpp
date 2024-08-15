@@ -38,7 +38,7 @@ void traverseAST(Node* node, ofstream& outFile)
 {
     while(node) 
     {
-        if(node->type == SECTION_NODE) outFile<<node->content<<endl;
+        if(node->type == SECTION_NODE) outFile<<"# "<<node->content<<endl;
         node = node->next;
     }
 }

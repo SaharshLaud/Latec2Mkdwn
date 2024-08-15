@@ -5,12 +5,18 @@
 %{
 #include "test_parser.tab.h"
 #include <cstdio>
+#include <iostream>
+using namespace std;
+
 %}
 
 %%
-\\section      { return SECTION; }
+\\section            {cout<<"Matched SECTION\n"; return SECTION;}
+\{                   {cout<<"Matched LBRACE\n"; return LBRACE; }
+\}                   {cout<<"Matched RBRACE\n"; return RBRACE; }
+[^\s{}\n]+  { yylval.str = strdup(yytext); std::cout << "Matched TEXT: " << yytext << "\n"; return TEXT; }
+
 [ ^\n]+   { /* ignore whitespace */ }
-.         { return yytext[0]; }
 %%
 
 int yywrap() {

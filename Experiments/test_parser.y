@@ -2,8 +2,8 @@
 /* This section contains parser Tokens and grammar rules. */
 
 %{
-#include <cstdio>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 #include "ast.h"
 #include <iostream>
 
@@ -14,14 +14,41 @@ void yyerror(const char *s){cerr << "Error: " << s << endl;};
 extern Node* root; // This is the root of our AST
 %}
 
+%union {
+    char* str;
+}
+
 /* We need to define tokens to be able to use them in grammar rules. */
-%token SECTION
+%token SECTION LBRACE RBRACE TEXT
+%type <str> TEXT text
+%type <str> section
 
 %%
 document:
-    section
-;
-section:
-    SECTION    { root = createNode(SECTION_NODE, "# This is a Section");}
-    ;
+        | document section
+        | document TEXT /* Ignore any unmatched text */
+        ;
+
+section: SECTION LBRACE text RBRACE
+        {
+            Node* node = createNode(SECTION_NODE, $3);
+            if (!root) {
+                root = node;
+            } else {
+                Node* current = root;
+                while (current->next) {
+                    current = current->next;
+                }
+                current->next = node;
+            }
+            printf("# %s\n", $3);
+        }
+        ;
+
+text: TEXT
+     {
+         $$ = $1;
+     }
+     ;
 %%
+
