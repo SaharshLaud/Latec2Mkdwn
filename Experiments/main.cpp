@@ -3,15 +3,19 @@
 #include <string>
 #include "test_parser.tab.h"
 #include "ast.h"
+
 using namespace std;
-//input file stream defined in lexer
+
 extern FILE *yyin;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        cerr << "Usage: " << argv[0] << " input.tex output.md" << endl;
+        return 1;
+    }
+
     FILE* input = fopen(argv[1], "r");
-    if(!input)
-    {
+    if (!input) {
         perror("Input file error");
         return 1;
     }
@@ -19,8 +23,7 @@ int main(int argc, char **argv)
     yyin = input;
 
     ofstream output(argv[2]);
-    if(!output)
-    {
+    if (!output) {
         perror("Output file error");
         fclose(input);
         return 1;
@@ -28,17 +31,11 @@ int main(int argc, char **argv)
 
     yyparse();
 
-    
-    if (root) 
-    {
-        //Print AST on console
+    if (root) {
         cout << "AST structure:" << endl;
         printAST(root);
-        //Traverse AST and write it to output file
         traverseAST(root, output);
-    } 
-    else 
-    {
+    } else {
         cerr << "Error: No AST created." << endl;
     }
 
@@ -46,5 +43,4 @@ int main(int argc, char **argv)
     fclose(input);
 
     return 0;
-
 }

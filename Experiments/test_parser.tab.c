@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 4 "test_parser.y"
+#line 1 "test_parser.y"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,7 +76,7 @@
 
 using namespace std;
 extern int yylex();
-void yyerror(const char *s){cerr << "Error: " << s << endl;};
+void yyerror(const char *s) { cerr << "Error: " << s << endl; }
 
 extern Node* root; // This is the root of our AST
 
@@ -505,7 +505,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    27,    27,    28,    29,    32,    48
+       0,    23,    23,    24,    25,    41,    58
 };
 #endif
 
@@ -1061,8 +1061,26 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 4: /* document: document TEXT  */
+#line 26 "test_parser.y"
+        {
+            Node* node = createNode(TEXT_NODE, (yyvsp[0].str)); // Create a text node
+            if (!root) {
+                root = node;
+            } else {
+                Node* current = root;
+                while (current->next) {
+                    current = current->next;
+                }
+                current->next = node;
+            }
+            free((yyvsp[0].str)); // Free the allocated memory for text
+        }
+#line 1080 "test_parser.tab.c"
+    break;
+
   case 5: /* section: SECTION LBRACE text RBRACE  */
-#line 33 "test_parser.y"
+#line 42 "test_parser.y"
         {
             Node* node = createNode(SECTION_NODE, (yyvsp[-1].str));
             if (!root) {
@@ -1075,20 +1093,21 @@ yyreduce:
                 current->next = node;
             }
             printf("# %s\n", (yyvsp[-1].str));
+            free((yyvsp[-1].str)); // Free the allocated memory for text
         }
-#line 1080 "test_parser.tab.c"
+#line 1099 "test_parser.tab.c"
     break;
 
   case 6: /* text: TEXT  */
-#line 49 "test_parser.y"
+#line 59 "test_parser.y"
      {
          (yyval.str) = (yyvsp[0].str);
      }
-#line 1088 "test_parser.tab.c"
+#line 1107 "test_parser.tab.c"
     break;
 
 
-#line 1092 "test_parser.tab.c"
+#line 1111 "test_parser.tab.c"
 
       default: break;
     }
@@ -1281,6 +1300,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 53 "test_parser.y"
+#line 64 "test_parser.y"
 
 
