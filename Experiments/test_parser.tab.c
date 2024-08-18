@@ -73,14 +73,16 @@
 #include <stdlib.h>
 #include "ast.h"
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 extern int yylex();
 void yyerror(const char *s) { cerr << "Error: " << s << endl; }
 
 extern Node* root; // This is the root of our AST
+Node* current_node = nullptr; // Keep track of the current node
 
-#line 84 "test_parser.tab.c"
+#line 86 "test_parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -112,13 +114,25 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_SECTION = 3,                    /* SECTION  */
-  YYSYMBOL_LBRACE = 4,                     /* LBRACE  */
-  YYSYMBOL_RBRACE = 5,                     /* RBRACE  */
-  YYSYMBOL_TEXT = 6,                       /* TEXT  */
-  YYSYMBOL_YYACCEPT = 7,                   /* $accept  */
-  YYSYMBOL_document = 8,                   /* document  */
-  YYSYMBOL_section = 9,                    /* section  */
-  YYSYMBOL_text = 10                       /* text  */
+  YYSYMBOL_SUBSECTION = 4,                 /* SUBSECTION  */
+  YYSYMBOL_SUBSUBSECTION = 5,              /* SUBSUBSECTION  */
+  YYSYMBOL_ITALIC = 6,                     /* ITALIC  */
+  YYSYMBOL_BOLD = 7,                       /* BOLD  */
+  YYSYMBOL_HLINE = 8,                      /* HLINE  */
+  YYSYMBOL_LBRACE = 9,                     /* LBRACE  */
+  YYSYMBOL_RBRACE = 10,                    /* RBRACE  */
+  YYSYMBOL_TEXT = 11,                      /* TEXT  */
+  YYSYMBOL_PAR = 12,                       /* PAR  */
+  YYSYMBOL_YYACCEPT = 13,                  /* $accept  */
+  YYSYMBOL_document = 14,                  /* document  */
+  YYSYMBOL_section = 15,                   /* section  */
+  YYSYMBOL_subsection = 16,                /* subsection  */
+  YYSYMBOL_subsubsection = 17,             /* subsubsection  */
+  YYSYMBOL_italic = 18,                    /* italic  */
+  YYSYMBOL_bold = 19,                      /* bold  */
+  YYSYMBOL_hline = 20,                     /* hline  */
+  YYSYMBOL_par = 21,                       /* par  */
+  YYSYMBOL_text = 22                       /* text  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -446,19 +460,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   6
+#define YYLAST   24
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  7
+#define YYNTOKENS  13
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  4
+#define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  19
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  10
+#define YYNSTATES  35
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   261
+#define YYMAXUTOK   267
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -498,14 +512,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6
+       5,     6,     7,     8,     9,    10,    11,    12
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,    23,    23,    24,    25,    41,    58
+       0,    27,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    49,    63,    76,    89,   102,   115,   127,   141,   145
 };
 #endif
 
@@ -521,8 +536,10 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "SECTION", "LBRACE",
-  "RBRACE", "TEXT", "$accept", "document", "section", "text", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "SECTION",
+  "SUBSECTION", "SUBSUBSECTION", "ITALIC", "BOLD", "HLINE", "LBRACE",
+  "RBRACE", "TEXT", "PAR", "$accept", "document", "section", "subsection",
+  "subsubsection", "italic", "bold", "hline", "par", "text", YY_NULLPTR
 };
 
 static const char *
@@ -532,7 +549,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-5)
+#define YYPACT_NINF (-9)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -546,7 +563,10 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -5,     0,    -5,    -3,    -5,    -5,    -4,    -5,    -1,    -5
+      -9,     0,    -9,    -8,    -7,     1,     8,     9,    -9,    -9,
+      -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -2,    -2,
+      -2,    -2,    -2,     7,    10,    11,    12,    13,    14,    -9,
+      -9,    -9,    -9,    -9,    -9
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -554,19 +574,22 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     0,     1,     0,     4,     3,     0,     6,     0,     5
+       2,     0,     1,     0,     0,     0,     0,     0,    16,    10,
+      17,     3,     4,     5,     6,     7,     8,     9,     0,     0,
+       0,     0,     0,    18,     0,     0,     0,     0,     0,    19,
+      11,    12,    13,    14,    15
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5,    -5,    -5
+      -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -6
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     5,     8
+       0,     1,    11,    12,    13,    14,    15,    16,    17,    24
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -574,31 +597,40 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2,     6,     7,     3,     9,     0,     4
+       2,    18,    19,     3,     4,     5,     6,     7,     8,    23,
+      20,     9,    10,    25,    26,    27,    28,    21,    22,    29,
+      30,    31,    32,    33,    34
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     4,     6,     3,     5,    -1,     6
+       0,     9,     9,     3,     4,     5,     6,     7,     8,    11,
+       9,    11,    12,    19,    20,    21,    22,     9,     9,    12,
+      10,    10,    10,    10,    10
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     8,     0,     3,     6,     9,     4,     6,    10,     5
+       0,    14,     0,     3,     4,     5,     6,     7,     8,    11,
+      12,    15,    16,    17,    18,    19,    20,    21,     9,     9,
+       9,     9,     9,    11,    22,    22,    22,    22,    22,    12,
+      10,    10,    10,    10,    10
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,     7,     8,     8,     8,     9,    10
+       0,    13,    14,    14,    14,    14,    14,    14,    14,    14,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    22
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0,     2,     2,     4,     1
+       0,     2,     0,     2,     2,     2,     2,     2,     2,     2,
+       2,     4,     4,     4,     4,     4,     1,     1,     1,     2
 };
 
 
@@ -1061,53 +1093,145 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 4: /* document: document TEXT  */
-#line 26 "test_parser.y"
+  case 10: /* document: document TEXT  */
+#line 36 "test_parser.y"
         {
             Node* node = createNode(TEXT_NODE, (yyvsp[0].str)); // Create a text node
             if (!root) {
                 root = node;
+                current_node = root;
             } else {
-                Node* current = root;
-                while (current->next) {
-                    current = current->next;
-                }
-                current->next = node;
+                current_node->next = node;
+                current_node = current_node->next;
             }
             free((yyvsp[0].str)); // Free the allocated memory for text
         }
-#line 1080 "test_parser.tab.c"
+#line 1110 "test_parser.tab.c"
     break;
 
-  case 5: /* section: SECTION LBRACE text RBRACE  */
-#line 42 "test_parser.y"
+  case 11: /* section: SECTION LBRACE text RBRACE  */
+#line 50 "test_parser.y"
         {
             Node* node = createNode(SECTION_NODE, (yyvsp[-1].str));
             if (!root) {
                 root = node;
+                current_node = root;
             } else {
-                Node* current = root;
-                while (current->next) {
-                    current = current->next;
-                }
-                current->next = node;
+                current_node->next = node;
+                current_node = current_node->next;
             }
-            printf("# %s\n", (yyvsp[-1].str));
             free((yyvsp[-1].str)); // Free the allocated memory for text
         }
-#line 1099 "test_parser.tab.c"
+#line 1126 "test_parser.tab.c"
     break;
 
-  case 6: /* text: TEXT  */
-#line 59 "test_parser.y"
+  case 12: /* subsection: SUBSECTION LBRACE text RBRACE  */
+#line 64 "test_parser.y"
+        {
+            Node* node = createNode(SUBSECTION_NODE, (yyvsp[-1].str));
+            if (current_node) {
+                addChild(current_node, node);
+            } else {
+                root = node;
+                current_node = root;
+            }
+            free((yyvsp[-1].str)); // Free the allocated memory for text
+        }
+#line 1141 "test_parser.tab.c"
+    break;
+
+  case 13: /* subsubsection: SUBSUBSECTION LBRACE text RBRACE  */
+#line 77 "test_parser.y"
+        {
+            Node* node = createNode(SUBSUBSECTION_NODE, (yyvsp[-1].str));
+            if (current_node) {
+                addChild(current_node, node);
+            } else {
+                root = node;
+                current_node = root;
+            }
+            free((yyvsp[-1].str)); // Free the allocated memory for text
+        }
+#line 1156 "test_parser.tab.c"
+    break;
+
+  case 14: /* italic: ITALIC LBRACE text RBRACE  */
+#line 90 "test_parser.y"
+        {
+            Node* node = createNode(ITALIC_NODE, (yyvsp[-1].str));
+            if (current_node) {
+                addChild(current_node, node);
+            } else {
+                root = node;
+                current_node = root;
+            }
+            free((yyvsp[-1].str)); // Free the allocated memory for text
+        }
+#line 1171 "test_parser.tab.c"
+    break;
+
+  case 15: /* bold: BOLD LBRACE text RBRACE  */
+#line 103 "test_parser.y"
+        {
+            Node* node = createNode(BOLD_NODE, (yyvsp[-1].str));
+            if (current_node) {
+                addChild(current_node, node);
+            } else {
+                root = node;
+                current_node = root;
+            }
+            free((yyvsp[-1].str)); // Free the allocated memory for text
+        }
+#line 1186 "test_parser.tab.c"
+    break;
+
+  case 16: /* hline: HLINE  */
+#line 116 "test_parser.y"
+        {
+            Node* node = createNode(HLINE_NODE, "");
+            if (current_node) {
+                addChild(current_node, node);
+            } else {
+                root = node;
+                current_node = root;
+            }
+        }
+#line 1200 "test_parser.tab.c"
+    break;
+
+  case 17: /* par: PAR  */
+#line 128 "test_parser.y"
+        {
+            Node* node = createNode(PARA_NODE, ""); // Create a paragraph node
+            if (!root) {
+                root = node;
+                current_node = root;
+            } else {
+                current_node->next = node;
+                current_node = current_node->next;
+            }
+        }
+#line 1215 "test_parser.tab.c"
+    break;
+
+  case 18: /* text: TEXT  */
+#line 142 "test_parser.y"
      {
          (yyval.str) = (yyvsp[0].str);
      }
-#line 1107 "test_parser.tab.c"
+#line 1223 "test_parser.tab.c"
+    break;
+
+  case 19: /* text: TEXT PAR  */
+#line 146 "test_parser.y"
+     {
+         (yyval.str) = (yyvsp[-1].str);
+     }
+#line 1231 "test_parser.tab.c"
     break;
 
 
-#line 1111 "test_parser.tab.c"
+#line 1235 "test_parser.tab.c"
 
       default: break;
     }
@@ -1300,6 +1424,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 64 "test_parser.y"
-
-
+#line 151 "test_parser.y"
