@@ -63,7 +63,14 @@ extern int yydebug;
     LBRACE = 264,                  /* LBRACE  */
     RBRACE = 265,                  /* RBRACE  */
     TEXT = 266,                    /* TEXT  */
-    PAR = 267                      /* PAR  */
+    PAR = 267,                     /* PAR  */
+    DOCUMENT = 268,                /* DOCUMENT  */
+    PACKAGE = 269,                 /* PACKAGE  */
+    TITLE = 270,                   /* TITLE  */
+    DATE = 271,                    /* DATE  */
+    BEGIN_TAG = 272,               /* BEGIN_TAG  */
+    END_TAG = 273,                 /* END_TAG  */
+    HYPERLINK = 274                /* HYPERLINK  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -76,7 +83,7 @@ union YYSTYPE
 
     char* str;
 
-#line 80 "test_parser.tab.h"
+#line 87 "test_parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

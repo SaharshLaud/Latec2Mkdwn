@@ -6,6 +6,16 @@ using namespace std;
 %}
 
 %%
+
+\\href               { cout << "Matched HYPERLINK\n"; return HYPERLINK; }
+\\begin              { cout << "Matched BEGIN-TAG\n"; return BEGIN_TAG; }
+\\end                { cout << "Matched END-TAG\n"; return END_TAG; }
+
+\\documentclass      { cout << "Matched DOCUMENT CLASS\n"; return DOCUMENT; }
+\\usepackage         { cout << "Matched PACKAGE\n"; return PACKAGE;}
+\\title              { cout << "Matched TITLE\n"; return TITLE;}
+\\date               { cout << "Matched DATE\n"; return DATE;}
+
 \\section            { cout << "Matched SECTION\n"; return SECTION; }
 \\subsection         { cout << "Matched SUBSECTION\n"; return SUBSECTION; }
 \\subsubsection      { cout << "Matched SUBSUBSECTION\n"; return SUBSUBSECTION; }

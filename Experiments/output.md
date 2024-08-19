@@ -7,4 +7,4 @@
 ---
 
 IIT Delhi is located in Hauz Khas, New Delhi. It offers undergraduate, postgraduate, and doctoral programs in various fields of engineering and technology. 
-The institute is renowned for its rigorous academic programs and distinguished faculty.
+The institute is renowned for its rigorous academic programs and distinguished faculty.[IIT Delhi Official Website](https://www.iitd.ac.in)

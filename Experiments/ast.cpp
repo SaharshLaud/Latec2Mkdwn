@@ -6,14 +6,16 @@ using namespace std;
 
 Node* root = nullptr;
 
-Node* createNode(NodeType type, const string& content) {
+Node* createNode(NodeType type, const string& content, const string& url) {
     Node* node = new Node;
     node->type = type;
     node->content = content;
+    node->url = url;   // Set URL for hyperlinks
     node->next = nullptr;
     node->children.clear(); // Initialize children vector
     return node;
 }
+
 
 void addChild(Node* parent, Node* child) {
     if (parent) {
@@ -28,7 +30,12 @@ void printAST(Node* node, int level) {
         cout << " - "; // Indentation for hierarchy
     }
 
-    cout << "Node Type= " << node->type << ", Content= " << node->content << endl;
+    cout << "Node Type= " << node->type << ", Content= " << node->content;
+    if (node->type == HYPERLINK_NODE) {
+        cout << ", URL= " << node->url; // Print URL for hyperlink nodes
+    }
+    
+    cout << endl;
 
     for (Node* child : node->children) {
         printAST(child, level + 1);
@@ -40,9 +47,28 @@ void printAST(Node* node, int level) {
     }
 }
 
+
 void traverseAST(Node* node, ofstream& outFile) {
     while (node) {
         switch (node->type) {
+            case DOCUMENT_NODE:
+                outFile << "";
+                break;
+            case PACKAGE_NODE:
+                outFile << "";
+                break;
+            case TITLE_NODE:
+                outFile << "";
+                break;
+            case DATE_NODE:
+                outFile << "";
+                break;
+            case BEGIN_NODE:
+                outFile << "";
+                break;
+            case END_NODE:
+                outFile << "";
+                break;
             case SECTION_NODE:
                 outFile << "# " << node->content << endl;
                 break;
@@ -67,6 +93,9 @@ void traverseAST(Node* node, ofstream& outFile) {
             case TEXT_NODE:
                 outFile << node->content;
                 break;
+            case HYPERLINK_NODE:
+                outFile << "[" << node->content << "](" << node->url << ")";
+                break;
             default:
                 break;
         }
@@ -80,4 +109,3 @@ void traverseAST(Node* node, ofstream& outFile) {
         node = node->next;
     }
 }
-
