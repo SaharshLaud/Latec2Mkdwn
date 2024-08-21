@@ -5,6 +5,7 @@
 using namespace std;
 
 Node* root = nullptr;
+Node* document_root = nullptr; // Root of the document content
 
 Node* createNode(NodeType type, const string& content, const string& url) {
     Node* node = new Node;
@@ -15,7 +16,6 @@ Node* createNode(NodeType type, const string& content, const string& url) {
     node->children.clear(); // Initialize children vector
     return node;
 }
-
 
 void addChild(Node* parent, Node* child) {
     if (parent) {
@@ -34,6 +34,7 @@ void printAST(Node* node, int level) {
     if (node->type == HYPERLINK_NODE) {
         cout << ", URL= " << node->url; // Print URL for hyperlink nodes
     }
+
     
     cout << endl;
 
@@ -47,12 +48,11 @@ void printAST(Node* node, int level) {
     }
 }
 
-
 void traverseAST(Node* node, ofstream& outFile) {
     while (node) {
         switch (node->type) {
             case DOCUMENT_NODE:
-                outFile << "";
+                // Document node itself is not directly converted
                 break;
             case PACKAGE_NODE:
                 outFile << "";
@@ -64,10 +64,10 @@ void traverseAST(Node* node, ofstream& outFile) {
                 outFile << "";
                 break;
             case BEGIN_NODE:
-                outFile << "";
+                // Start of the document; node is not used directly
                 break;
             case END_NODE:
-                outFile << "";
+                // End of the document; node is not used directly
                 break;
             case SECTION_NODE:
                 outFile << "# " << node->content << endl;
@@ -88,13 +88,19 @@ void traverseAST(Node* node, ofstream& outFile) {
                 outFile << "\n---\n" << endl;
                 break;
             case PARA_NODE:
-                outFile << " " << endl;
+                outFile << endl; // Paragraph separation
                 break;
             case TEXT_NODE:
                 outFile << node->content;
                 break;
             case HYPERLINK_NODE:
-                outFile << "[" << node->content << "](" << node->url << ")";
+                outFile << "[" << node->content << "](" << node->url << ")" << endl;
+                break;
+            case IMAGE_NODE:
+                outFile << "![" << "alt text" << "](" << node->content << ")" << endl;
+                break;
+            case VERBATIM_NODE:
+                outFile << "\n```" << endl;
                 break;
             default:
                 break;
@@ -107,5 +113,7 @@ void traverseAST(Node* node, ofstream& outFile) {
 
         // Move to next sibling
         node = node->next;
+        
     }
 }
+

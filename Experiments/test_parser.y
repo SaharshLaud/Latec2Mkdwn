@@ -11,14 +11,19 @@ void yyerror(const char *s) { cerr << "Error: " << s << endl; }
 
 extern Node* root; // This is the root of our AST
 Node* current_node = nullptr; // Keep track of the current node
+Node* last_node = nullptr;    // To link the next sibling nodes
+// Declare extractImagePath function
+std::string extractImagePath(const char* imageToken);
 %}
 
 %union {
     char* str;
 }
 
-%token <str> SECTION SUBSECTION SUBSUBSECTION ITALIC BOLD HLINE LBRACE RBRACE TEXT PAR DOCUMENT PACKAGE TITLE DATE BEGIN_TAG END_TAG HYPERLINK
-%type <str> text section subsection subsubsection italic bold hline par doc package title date begin end hyperlink
+%token <str> SECTION SUBSECTION SUBSUBSECTION ITALIC BOLD HLINE LBRACE RBRACE TEXT PAR DOCUMENT PACKAGE TITLE DATE HYPERLINK VERBATIM
+%type <str> text section subsection subsubsection italic bold hline par doc package title date begin hyperlink code image
+%token <str> BEGIN_DOC END_TAG BEGIN_TAG END_DOC IMAGE
+
 
 %%
 
@@ -28,7 +33,6 @@ document:
         | document title
         | document date
         | document begin
-        | document end
         | document section
         | document subsection
         | document subsubsection
@@ -37,16 +41,20 @@ document:
         | document hline
         | document par
         | document hyperlink
+        | document code
+        | document image
         | document TEXT
+
         {
-            Node* node = createNode(TEXT_NODE, $2); // Create a text node
+            Node* node = createNode(TEXT_NODE, $2);
             if (!root) {
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node;
             free($2); // Free the allocated memory for text
         }
         ;
@@ -58,9 +66,10 @@ doc: DOCUMENT LBRACE text RBRACE
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
             free($3); // Free the allocated memory for text
         }
         ;
@@ -72,9 +81,11 @@ package: PACKAGE LBRACE text RBRACE
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -86,12 +97,15 @@ title: TITLE LBRACE text RBRACE
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
+
 date: DATE LBRACE text RBRACE
         {
             Node* node = createNode(DATE_NODE, $3);
@@ -99,25 +113,43 @@ date: DATE LBRACE text RBRACE
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
-begin: BEGIN_TAG LBRACE text RBRACE
+
+begin: BEGIN_DOC
         {
-            Node* node = createNode(BEGIN_NODE, $3);
+            Node* node = createNode(BEGIN_NODE, "");
             if (!root) {
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
-            free($3); // Free the allocated memory for text
+            last_node = node; // Update last_node to the newly created node
+
+        }
+        |
+        END_DOC
+        {
+            Node* node = createNode(END_NODE, "");
+            if (current_node) {
+                current_node->next = node;
+                current_node = current_node->next;
+            } else {
+                last_node->next = node;
+            }
+            last_node = node; // Update last_node to the newly created node
+
         }
         ;
+
 
 section: SECTION LBRACE text RBRACE
         {
@@ -126,9 +158,11 @@ section: SECTION LBRACE text RBRACE
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -139,9 +173,11 @@ subsection: SUBSECTION LBRACE text RBRACE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -152,9 +188,11 @@ subsubsection: SUBSUBSECTION LBRACE text RBRACE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -165,9 +203,11 @@ italic: ITALIC LBRACE text RBRACE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -178,9 +218,11 @@ bold: BOLD LBRACE text RBRACE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($3); // Free the allocated memory for text
         }
         ;
@@ -191,9 +233,11 @@ hline: HLINE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
         }
         ;
 
@@ -204,9 +248,11 @@ par: PAR
                 root = node;
                 current_node = root;
             } else {
-                current_node->next = node;
+                current_node->next=node;
                 current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
         }
         ;
 
@@ -216,15 +262,53 @@ hyperlink: HYPERLINK LBRACE text RBRACE LBRACE text RBRACE
             if (current_node) {
                 addChild(current_node, node);
             } else {
-                root = node;
-                current_node = root;
+                current_node->next=node;
+                current_node = current_node->next;
             }
+            last_node = node; // Update last_node to the newly created node
+
             free($6);
             free($3);
-            
         }
         ;
 
+code: BEGIN_TAG LBRACE VERBATIM RBRACE
+    {
+        Node* node = createNode(VERBATIM_NODE, "```"); // Start verbatim node
+        if (!root) {
+            root = node;
+            current_node = root;
+        } else {
+            current_node->next = node;
+            current_node = current_node->next;
+        }
+    }
+   
+    | END_TAG LBRACE VERBATIM RBRACE
+    {
+        Node* node = createNode(VERBATIM_NODE, "```"); // End verbatim node
+    
+        if (current_node) {
+            addChild(current_node, node);
+            current_node = node->next; // Move to the next node
+        }
+    }     
+    ;
+image: IMAGE
+        {
+            // Extract path from the image token
+            std::string imagePath = extractImagePath($1); // Implement this function to parse the path from the token
+            Node* node = createNode(IMAGE_NODE, imagePath);
+            if (current_node) {
+                current_node->next = node;
+                current_node = current_node->next;
+            } else {
+                last_node->next = node;
+            }
+            last_node = node;
+            free($1); // Free the allocated memory for image token
+        }
+        ;
 text: TEXT
      {
          $$ = $1;
@@ -233,19 +317,13 @@ text: TEXT
      {
          $$ = $1;
      }
-     ;
-end: END_TAG LBRACE text RBRACE
-        {
-            Node* node = createNode(END_NODE, $3);
-            if (!root) {
-                root = node;
-                current_node = root;
-            } else {
-                current_node->next = node;
-                current_node = current_node->next;
-            }
-            free($3); // Free the allocated memory for text
-        }
-        ;
+
 %%
 
+std::string extractImagePath(const char* imageToken) 
+{
+    std::string token(imageToken);
+    size_t startPos = token.find("{") + 1;
+    size_t endPos = token.find("}");
+    return token.substr(startPos, endPos - startPos);
+}

@@ -23,6 +23,9 @@ enum NodeType {
     BEGIN_NODE,
     END_NODE,
     HYPERLINK_NODE,  // New node type for hyperlinks
+    VERBATIM_NODE, 
+    IMAGE_NODE,
+    
 };
 
 struct Node {

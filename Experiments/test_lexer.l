@@ -2,10 +2,20 @@
 #include "test_parser.tab.h"
 #include <cstdio>
 #include <iostream>
+#include <cstring>
+
 using namespace std;
+
+void yyerror(const char *s);
 %}
 
 %%
+
+"verbatim"           { cout << "Matched VERBATIM\n"; return VERBATIM; }
+\\includegraphics\[[^{}\n]+\]\{[^{}\n]+\}  { cout << "Matched IMAGE\n"; yylval.str = strdup(yytext); return IMAGE;}
+
+\\begin\{\document\} { cout << "Matched BEGIN-DOCUMENT\n"; return BEGIN_DOC; }
+\\end\{\document\}   { cout << "Matched END-DOCUMENT\n"; return END_DOC; }
 
 \\href               { cout << "Matched HYPERLINK\n"; return HYPERLINK; }
 \\begin              { cout << "Matched BEGIN-TAG\n"; return BEGIN_TAG; }
@@ -25,7 +35,9 @@ using namespace std;
 \\par                { cout << "Matched PARAGRAPH\n"; yylval.str = strdup(yytext); return PAR; }
 \{                   { cout << "Matched LBRACE\n"; return LBRACE; }
 \}                   { cout << "Matched RBRACE\n"; return RBRACE; }
-[^{}\n]+             { yylval.str = strdup(yytext); std::cout << "Matched TEXT: " << yytext << "\n"; return TEXT; }
+
+[^{}\n]+             { yylval.str = strdup(yytext); cout << "Matched TEXT: " << yytext << "\n"; return TEXT; }
+
 %%
 
 int yywrap() {

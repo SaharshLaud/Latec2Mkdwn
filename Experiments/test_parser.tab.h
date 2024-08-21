@@ -68,9 +68,13 @@ extern int yydebug;
     PACKAGE = 269,                 /* PACKAGE  */
     TITLE = 270,                   /* TITLE  */
     DATE = 271,                    /* DATE  */
-    BEGIN_TAG = 272,               /* BEGIN_TAG  */
-    END_TAG = 273,                 /* END_TAG  */
-    HYPERLINK = 274                /* HYPERLINK  */
+    HYPERLINK = 272,               /* HYPERLINK  */
+    VERBATIM = 273,                /* VERBATIM  */
+    BEGIN_DOC = 274,               /* BEGIN_DOC  */
+    END_TAG = 275,                 /* END_TAG  */
+    BEGIN_TAG = 276,               /* BEGIN_TAG  */
+    END_DOC = 277,                 /* END_DOC  */
+    IMAGE = 278                    /* IMAGE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -79,11 +83,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 16 "test_parser.y"
+#line 19 "test_parser.y"
 
     char* str;
 
-#line 87 "test_parser.tab.h"
+#line 91 "test_parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
