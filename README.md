@@ -11,16 +11,23 @@ Latex Features Implemented:
 - Images
 
 ## Building and Usage
-~~~
-1. Build the project:
-``` make ```
 
-2. Run the script:
-``` ./run.sh input.tex output.md ```
+* Build the project:
+```
+ make
+```
 
-3. Clean up:
-``` make clean ```
+* Run the script:
+```
+./run.sh input.tex output.md
+```
 
-4. Make sure that "run.sh" has execute permissions. You can set this with:
-``` chmod +x run.sh ```
-~~~
+* Clean up:
+```
+make clean
+```
+
+* Make sure that "run.sh" has execute permissions. You can set this with:
+```
+chmod +x run.sh
+```
