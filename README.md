@@ -9,6 +9,7 @@ Latex Features Implemented:
 - Code blocks
 - Hyperlink
 - Images
+- Unordered Lists
 
 ## Building and Usage
 
