@@ -22,6 +22,9 @@ const char* nodeTypeNames[] = {
     "DATE",
     "BEGIN_DOC",
     "END_DOC",
+    "BEGINUL",
+    "ENDUL",
+    "ITEM"
 };
 // Definition of createNode function with URL parameter
 ASTNode* createNode(NodeType type, std::string content, std::string url) {
@@ -37,7 +40,12 @@ void addChild(ASTNode* parent, ASTNode* child) {
 void printAST(ASTNode* node, int depth) {
     if (node == nullptr) return;
     
-    for (int i = 0; i < depth; i++) std::cout << " - ";
+    for (int i = 0; i < depth; i++)
+    {
+         if(node->type==NODE_ITEM) std::cout << " -- ";
+         else std::cout << " - ";
+
+    }
     
     std::cout << "Node: " << nodeTypeNames[node->type] << ", Content: " << node->content;
     if (!node->url.empty()) std::cout << ", URL: " << node->url;
@@ -91,6 +99,9 @@ void traverseAST(ASTNode* node, std::ofstream& outFile) {
         case NODE_IMAGE:
             outFile << "![alt text]" << "(" << node->url << ")";
             break;
+        case NODE_ITEM:
+            outFile << "- " << node->content;
+            break;
         case NODE_TEXT:
             outFile << node->content;
             break;
@@ -105,6 +116,10 @@ void traverseAST(ASTNode* node, std::ofstream& outFile) {
         case NODE_BEGIN_DOC:
             break;
         case NODE_END_DOC:
+            break;
+        case NODE_BEGINUL:
+            break;
+        case NODE_ENDUL:
             break;
         default:
             break;

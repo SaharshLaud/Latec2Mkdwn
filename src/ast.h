@@ -24,7 +24,10 @@ typedef enum NodeType {
     NODE_TITLE,
     NODE_DATE,
     NODE_BEGIN_DOC,
-    NODE_END_DOC
+    NODE_END_DOC,
+    NODE_BEGINUL,
+    NODE_ENDUL,
+    NODE_ITEM
 } NodeType;
 
 typedef struct ASTNode {

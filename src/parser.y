@@ -15,9 +15,9 @@ ASTNode *root = nullptr;
 %token OPEN_BRACE CLOSE_BRACE TEXT NEWLINE GRAPHICS_OPTIONS VERBATIM_TEXT
 %token DOCUMENTCLASS PACKAGE TITLE DATE BEGIN_DOCUMENT END_DOCUMENT
 %type <node> document elements element section subsection subsubsection bold italics hrule paragraph verbatim hyperlink image
-%type <node> docclass package title date begindoc enddoc
+%type <node> docclass package title date begindoc enddoc unlist
 %type <str> TEXT VERBATIM_TEXT  /* Added VERBATIM_TEXT here */
-
+%token BEGINUL ENDUL ITEM
 %%
 
 document:
@@ -48,6 +48,7 @@ element:
     | verbatim
     | hyperlink
     | image
+    | unlist
     ;
 
 docclass:
@@ -115,6 +116,9 @@ image:
     INCLUDEGRAPHICS GRAPHICS_OPTIONS OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_IMAGE, "", $4); }
     | INCLUDEGRAPHICS OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_IMAGE, "", $3); }
 
+unlist: BEGINUL { $$ = createNode(NODE_BEGINUL, ""); }
+        | ENDUL  { $$ = createNode(NODE_ENDUL, ""); }
+        | ITEM TEXT   { $$ = createNode(NODE_ITEM, $2);  }
 ;
 
 %%

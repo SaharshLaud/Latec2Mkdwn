@@ -16,11 +16,11 @@ $(EXEC): $(BUILD_DIR)/lex.yy.c $(BUILD_DIR)/parser.tab.c
 
 # Generating lexer file
 $(BUILD_DIR)/lex.yy.c: $(SRC_DIR)/lexer.l
-	flex $(SRC_DIR)/lexer.l
+	flex -o $@ $<
 
 # Generating parser files
 $(BUILD_DIR)/parser.tab.c $(BUILD_DIR)/parser.tab.h: $(SRC_DIR)/parser.y
-	bison -d $(BUILD_DIR)/parser.tab.c $(SRC_DIR)/parser.y
+	bison -d -o $(BUILD_DIR)/parser.tab.c $(SRC_DIR)/parser.y
 
 # Running executable with input and output files
 run: $(EXEC)

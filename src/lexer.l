@@ -25,11 +25,18 @@ using namespace std;
 "\\href"                    { return HREF; }
 \n                          { return NEWLINE; }
 
+
+"\\begin{itemize}\n"          { cout<<"BEGINUL";return BEGINUL; }
+"\\end{itemize}\n"          { cout<<"ENDUL";return ENDUL; }
+
+"\\item"                     { cout<<"ITEM";return ITEM; }
+
+
 "\\includegraphics"         { return INCLUDEGRAPHICS; }
 \[[^\]]*\]                  { yylval.str = strdup(yytext); return GRAPHICS_OPTIONS; }
 "{"                         { return OPEN_BRACE; }
 "}"                         { return CLOSE_BRACE; }
-[^{}\\\[\]\n]+              { yylval.str = strdup(yytext); return TEXT; }
+[^{}\\\[\]\n]+              { yylval.str = strdup(yytext); return TEXT; } 
 
 "\\begin{verbatim}" {
     BEGIN(VERBATIM_MODE);
