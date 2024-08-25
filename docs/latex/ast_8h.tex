@@ -1,0 +1,277 @@
+\hypertarget{ast_8h}{}\doxysection{src/ast.h File Reference}
+\label{ast_8h}\index{src/ast.h@{src/ast.h}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for ast.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structASTNode}{ASTNode}}
+\begin{DoxyCompactList}\small\item\em Structure used for AST nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} \mbox{\hyperlink{ast_8h_a9117e76d99fa50a469565a9acd465b5a}{Node\+Type}}
+\begin{DoxyCompactList}\small\item\em Enumeration used for various types of nodes in AST. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structASTNode}{ASTNode}} \mbox{\hyperlink{ast_8h_a6b9026f45e950e06b76db629f9563f3a}{ASTNode}}
+\begin{DoxyCompactList}\small\item\em Structure used for AST nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} \{ \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a5429d5554327d9f16fb56fc565711100}{NODE\+\_\+\+TEXT}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16aa8c47e6e72e7e2926ec4c95c778169fd}{NODE\+\_\+\+DOCUMENT}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a8f28023d25ff93f1097fb337a7c7fbdc}{NODE\+\_\+\+SECTION}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f62239443f016ec15a1bcf138529c23}{NODE\+\_\+\+SUBSECTION}}
+, \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f322f66dc14d52f2b990af31f757fec}{NODE\+\_\+\+SUBSUBSECTION}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16af63497978692fb706b9441d190a3fe73}{NODE\+\_\+\+BOLD}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a351f206361cad5791201b99a7bf66923}{NODE\+\_\+\+ITALICS}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a49cd51d50870db734be02e481c8e6972}{NODE\+\_\+\+HRULE}}
+, \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16af33d373cce8808afa10528cf0b1975a1}{NODE\+\_\+\+PARAGRAPH}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16aaeeaa40203783590f972fcd98c075188}{NODE\+\_\+\+VERBATIM}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16ad11d3649e4e48a3d867835544a40c6cf}{NODE\+\_\+\+HYPERLINK}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16ac7b0c96ef8b2320f67e04b2b41c26d02}{NODE\+\_\+\+IMAGE}}
+, \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16ad560fd318cf67cd10c2b20c69229f067}{NODE\+\_\+\+DOCCLASS}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16afcaa75bc85bc2d6599737caec02c198b}{NODE\+\_\+\+PACKAGE}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a3d95d7f09121a59a95b74a004bacd8ea}{NODE\+\_\+\+TITLE}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a21a9d2fa36c0f6a6728b9b1c984a95b9}{NODE\+\_\+\+DATE}}
+, \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a89871542abe716b6eba26d26e8347ee5}{NODE\+\_\+\+BEGINDOC}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a6fb78cc3a99c78c2fa14901f0ede5290}{NODE\+\_\+\+ENDDOC}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16aeb2267a5123b6bf72c43eb2a19546105}{NODE\+\_\+\+BEGINUL}}
+, \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a9005a8a6635a48ff8f2e9e628f394b5b}{NODE\+\_\+\+ENDUL}}
+, \newline
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16a215e811f1f74f0033d1b0b0ec3bcf8d9}{NODE\+\_\+\+ITEM}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration used for various types of nodes in AST. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$ \mbox{\hyperlink{ast_8h_a8bd4a6e8ee9c793d9ac6104c0dcc961b}{create\+Node}} (\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} type, std\+::string content, std\+::string url=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Function to create a new AST node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8h_a067aaa22bccfb708e8eb08dc7d856a54}{add\+Child}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$parent, \mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$child)
+\begin{DoxyCompactList}\small\item\em Fucntion that adds a child node to a parent node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8h_ac97af3ee4c18deeb85d9d44c7a983858}{traverse\+AST}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$node, std\+::ofstream \&out\+File)
+\begin{DoxyCompactList}\small\item\em Function to traverse the AST and write the corresponding Markdown output to a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8h_a05fda2773de80106172420b5a2d31c42}{print\+AST}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$node, int depth=0)
+\begin{DoxyCompactList}\small\item\em Function to print the AST structure to the console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{ast_8h_a6b9026f45e950e06b76db629f9563f3a}\label{ast_8h_a6b9026f45e950e06b76db629f9563f3a}} 
+\index{ast.h@{ast.h}!ASTNode@{ASTNode}}
+\index{ASTNode@{ASTNode}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{ASTNode}{ASTNode}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structASTNode}{ASTNode}} \mbox{\hyperlink{structASTNode}{ASTNode}}}
+
+
+
+Structure used for AST nodes. 
+
+\mbox{\Hypertarget{ast_8h_a9117e76d99fa50a469565a9acd465b5a}\label{ast_8h_a9117e76d99fa50a469565a9acd465b5a}} 
+\index{ast.h@{ast.h}!NodeType@{NodeType}}
+\index{NodeType@{NodeType}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{NodeType}{NodeType}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}}}
+
+
+
+Enumeration used for various types of nodes in AST. 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16}} 
+\index{ast.h@{ast.h}!NodeType@{NodeType}}
+\index{NodeType@{NodeType}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{NodeType}{NodeType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}}}
+
+
+
+Enumeration used for various types of nodes in AST. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_TEXT@{NODE\_TEXT}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_TEXT@{NODE\_TEXT}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a5429d5554327d9f16fb56fc565711100}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a5429d5554327d9f16fb56fc565711100}} 
+NODE\+\_\+\+TEXT&Text Node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_DOCUMENT@{NODE\_DOCUMENT}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_DOCUMENT@{NODE\_DOCUMENT}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16aa8c47e6e72e7e2926ec4c95c778169fd}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16aa8c47e6e72e7e2926ec4c95c778169fd}} 
+NODE\+\_\+\+DOCUMENT&Document start node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_SECTION@{NODE\_SECTION}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_SECTION@{NODE\_SECTION}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a8f28023d25ff93f1097fb337a7c7fbdc}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a8f28023d25ff93f1097fb337a7c7fbdc}} 
+NODE\+\_\+\+SECTION&Section node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_SUBSECTION@{NODE\_SUBSECTION}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_SUBSECTION@{NODE\_SUBSECTION}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f62239443f016ec15a1bcf138529c23}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f62239443f016ec15a1bcf138529c23}} 
+NODE\+\_\+\+SUBSECTION&Subsection node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_SUBSUBSECTION@{NODE\_SUBSUBSECTION}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_SUBSUBSECTION@{NODE\_SUBSUBSECTION}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f322f66dc14d52f2b990af31f757fec}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a5f322f66dc14d52f2b990af31f757fec}} 
+NODE\+\_\+\+SUBSUBSECTION&Subsubsection node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_BOLD@{NODE\_BOLD}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_BOLD@{NODE\_BOLD}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16af63497978692fb706b9441d190a3fe73}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16af63497978692fb706b9441d190a3fe73}} 
+NODE\+\_\+\+BOLD&Bold text node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_ITALICS@{NODE\_ITALICS}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_ITALICS@{NODE\_ITALICS}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a351f206361cad5791201b99a7bf66923}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a351f206361cad5791201b99a7bf66923}} 
+NODE\+\_\+\+ITALICS&Italic text node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_HRULE@{NODE\_HRULE}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_HRULE@{NODE\_HRULE}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a49cd51d50870db734be02e481c8e6972}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a49cd51d50870db734be02e481c8e6972}} 
+NODE\+\_\+\+HRULE&Horizontal line node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_PARAGRAPH@{NODE\_PARAGRAPH}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_PARAGRAPH@{NODE\_PARAGRAPH}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16af33d373cce8808afa10528cf0b1975a1}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16af33d373cce8808afa10528cf0b1975a1}} 
+NODE\+\_\+\+PARAGRAPH&Paragraph node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_VERBATIM@{NODE\_VERBATIM}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_VERBATIM@{NODE\_VERBATIM}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16aaeeaa40203783590f972fcd98c075188}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16aaeeaa40203783590f972fcd98c075188}} 
+NODE\+\_\+\+VERBATIM&Code node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_HYPERLINK@{NODE\_HYPERLINK}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_HYPERLINK@{NODE\_HYPERLINK}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16ad11d3649e4e48a3d867835544a40c6cf}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16ad11d3649e4e48a3d867835544a40c6cf}} 
+NODE\+\_\+\+HYPERLINK&Hyperlink node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_IMAGE@{NODE\_IMAGE}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_IMAGE@{NODE\_IMAGE}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16ac7b0c96ef8b2320f67e04b2b41c26d02}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16ac7b0c96ef8b2320f67e04b2b41c26d02}} 
+NODE\+\_\+\+IMAGE&Image node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_DOCCLASS@{NODE\_DOCCLASS}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_DOCCLASS@{NODE\_DOCCLASS}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16ad560fd318cf67cd10c2b20c69229f067}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16ad560fd318cf67cd10c2b20c69229f067}} 
+NODE\+\_\+\+DOCCLASS&Document class node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_PACKAGE@{NODE\_PACKAGE}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_PACKAGE@{NODE\_PACKAGE}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16afcaa75bc85bc2d6599737caec02c198b}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16afcaa75bc85bc2d6599737caec02c198b}} 
+NODE\+\_\+\+PACKAGE&Package inclusion node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_TITLE@{NODE\_TITLE}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_TITLE@{NODE\_TITLE}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a3d95d7f09121a59a95b74a004bacd8ea}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a3d95d7f09121a59a95b74a004bacd8ea}} 
+NODE\+\_\+\+TITLE&Document title node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_DATE@{NODE\_DATE}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_DATE@{NODE\_DATE}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a21a9d2fa36c0f6a6728b9b1c984a95b9}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a21a9d2fa36c0f6a6728b9b1c984a95b9}} 
+NODE\+\_\+\+DATE&Document date node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_BEGINDOC@{NODE\_BEGINDOC}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_BEGINDOC@{NODE\_BEGINDOC}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a89871542abe716b6eba26d26e8347ee5}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a89871542abe716b6eba26d26e8347ee5}} 
+NODE\+\_\+\+BEGINDOC&Begin Document node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_ENDDOC@{NODE\_ENDDOC}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_ENDDOC@{NODE\_ENDDOC}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a6fb78cc3a99c78c2fa14901f0ede5290}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a6fb78cc3a99c78c2fa14901f0ede5290}} 
+NODE\+\_\+\+ENDDOC&End Document node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_BEGINUL@{NODE\_BEGINUL}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_BEGINUL@{NODE\_BEGINUL}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16aeb2267a5123b6bf72c43eb2a19546105}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16aeb2267a5123b6bf72c43eb2a19546105}} 
+NODE\+\_\+\+BEGINUL&Begin Unordered list node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_ENDUL@{NODE\_ENDUL}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_ENDUL@{NODE\_ENDUL}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a9005a8a6635a48ff8f2e9e628f394b5b}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a9005a8a6635a48ff8f2e9e628f394b5b}} 
+NODE\+\_\+\+ENDUL&End Unordered list node \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NODE\_ITEM@{NODE\_ITEM}!ast.h@{ast.h}}\index{ast.h@{ast.h}!NODE\_ITEM@{NODE\_ITEM}}}\mbox{\Hypertarget{ast_8h_acac9cbaeea226ed297804c012dc12b16a215e811f1f74f0033d1b0b0ec3bcf8d9}\label{ast_8h_acac9cbaeea226ed297804c012dc12b16a215e811f1f74f0033d1b0b0ec3bcf8d9}} 
+NODE\+\_\+\+ITEM&List item node \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ast_8h_a067aaa22bccfb708e8eb08dc7d856a54}\label{ast_8h_a067aaa22bccfb708e8eb08dc7d856a54}} 
+\index{ast.h@{ast.h}!addChild@{addChild}}
+\index{addChild@{addChild}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{addChild()}{addChild()}}
+{\footnotesize\ttfamily void add\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+
+
+Fucntion that adds a child node to a parent node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent node. \\
+\hline
+{\em child} & The child node to be added.\\
+\hline
+\end{DoxyParams}
+Fucntion that adds a child node to a parent node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent node to which the child will be added. \\
+\hline
+{\em child} & The child node to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ast_8h_a8bd4a6e8ee9c793d9ac6104c0dcc961b}\label{ast_8h_a8bd4a6e8ee9c793d9ac6104c0dcc961b}} 
+\index{ast.h@{ast.h}!createNode@{createNode}}
+\index{createNode@{createNode}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{createNode()}{createNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structASTNode}{ASTNode}}$\ast$ create\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}}}]{type,  }\item[{std\+::string}]{content,  }\item[{std\+::string}]{url }\end{DoxyParamCaption})}
+
+
+
+Function to create a new AST node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of the node. \\
+\hline
+{\em content} & The content of the node. \\
+\hline
+{\em url} & Optional URL or PATH for nodes like HYPERLINK and IMAGE. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the newly created AST node.
+\end{DoxyReturn}
+Function to create a new AST node.
+
+\begin{DoxyReturn}{Returns}
+A pointer to the newly created AST node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ast_8h_a05fda2773de80106172420b5a2d31c42}\label{ast_8h_a05fda2773de80106172420b5a2d31c42}} 
+\index{ast.h@{ast.h}!printAST@{printAST}}
+\index{printAST@{printAST}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{printAST()}{printAST()}}
+{\footnotesize\ttfamily void print\+AST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{node,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+
+
+Function to print the AST structure to the console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The root node of the AST. \\
+\hline
+{\em depth} & The current depth level in the AST (default\+: 0).\\
+\hline
+\end{DoxyParams}
+Function to print the AST structure to the console. \mbox{\Hypertarget{ast_8h_ac97af3ee4c18deeb85d9d44c7a983858}\label{ast_8h_ac97af3ee4c18deeb85d9d44c7a983858}} 
+\index{ast.h@{ast.h}!traverseAST@{traverseAST}}
+\index{traverseAST@{traverseAST}!ast.h@{ast.h}}
+\doxysubsubsection{\texorpdfstring{traverseAST()}{traverseAST()}}
+{\footnotesize\ttfamily void traverse\+AST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{node,  }\item[{std\+::ofstream \&}]{out\+File }\end{DoxyParamCaption})}
+
+
+
+Function to traverse the AST and write the corresponding Markdown output to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The root node of the AST. \\
+\hline
+{\em out\+File} & The output file stream to write the Markdown content.\\
+\hline
+\end{DoxyParams}
+Function to traverse the AST and write the corresponding Markdown output to a file. 

@@ -1,0 +1,96 @@
+\hypertarget{structASTNode}{}\doxysection{ASTNode Struct Reference}
+\label{structASTNode}\index{ASTNode@{ASTNode}}
+
+
+Structure used for AST nodes.  
+
+
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Collaboration diagram for ASTNode\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structASTNode_a90786c9167d89bfad8bcb1f717685434}{ASTNode}} (\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} t, std\+::string c=\char`\"{}\char`\"{}, std\+::string u=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{structASTNode}{ASTNode}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} \mbox{\hyperlink{structASTNode_a34086f3bc5af008f08f255c8ec57ba21}{type}}
+\item 
+std\+::string \mbox{\hyperlink{structASTNode_acd50969d595d58ff10d2dbb0d87e70a1}{content}}
+\item 
+std\+::string \mbox{\hyperlink{structASTNode_a71acc0896e5b9f12a9acf3490cfc31c1}{url}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$ $>$ \mbox{\hyperlink{structASTNode_a0265a071bdc66198d4241e1b57ccf2c8}{children}}
+\item 
+\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$ \mbox{\hyperlink{structASTNode_a90bc1e6569b24b6986bc86fa28ac6733}{next}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure used for AST nodes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structASTNode_a90786c9167d89bfad8bcb1f717685434}\label{structASTNode_a90786c9167d89bfad8bcb1f717685434}} 
+\index{ASTNode@{ASTNode}!ASTNode@{ASTNode}}
+\index{ASTNode@{ASTNode}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{ASTNode()}{ASTNode()}}
+{\footnotesize\ttfamily ASTNode\+::\+ASTNode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}}}]{t,  }\item[{std\+::string}]{c = {\ttfamily \char`\"{}\char`\"{}},  }\item[{std\+::string}]{u = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \mbox{\hyperlink{structASTNode}{ASTNode}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & The type of the node. \\
+\hline
+{\em c} & The content of the node (default\+: empty string). \\
+\hline
+{\em u} & The URL of the node (optional, default\+: empty string). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structASTNode_a0265a071bdc66198d4241e1b57ccf2c8}\label{structASTNode_a0265a071bdc66198d4241e1b57ccf2c8}} 
+\index{ASTNode@{ASTNode}!children@{children}}
+\index{children@{children}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{children}{children}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structASTNode}{ASTNode}}$\ast$$>$ ASTNode\+::children}
+
+The children of this node \mbox{\Hypertarget{structASTNode_acd50969d595d58ff10d2dbb0d87e70a1}\label{structASTNode_acd50969d595d58ff10d2dbb0d87e70a1}} 
+\index{ASTNode@{ASTNode}!content@{content}}
+\index{content@{content}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{content}{content}}
+{\footnotesize\ttfamily std\+::string ASTNode\+::content}
+
+The content of the node \mbox{\Hypertarget{structASTNode_a90bc1e6569b24b6986bc86fa28ac6733}\label{structASTNode_a90bc1e6569b24b6986bc86fa28ac6733}} 
+\index{ASTNode@{ASTNode}!next@{next}}
+\index{next@{next}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structASTNode}{ASTNode}}$\ast$ ASTNode\+::next}
+
+The next sibling node \mbox{\Hypertarget{structASTNode_a34086f3bc5af008f08f255c8ec57ba21}\label{structASTNode_a34086f3bc5af008f08f255c8ec57ba21}} 
+\index{ASTNode@{ASTNode}!type@{type}}
+\index{type@{type}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} ASTNode\+::type}
+
+The type of the node \mbox{\Hypertarget{structASTNode_a71acc0896e5b9f12a9acf3490cfc31c1}\label{structASTNode_a71acc0896e5b9f12a9acf3490cfc31c1}} 
+\index{ASTNode@{ASTNode}!url@{url}}
+\index{url@{url}!ASTNode@{ASTNode}}
+\doxysubsubsection{\texorpdfstring{url}{url}}
+{\footnotesize\ttfamily std\+::string ASTNode\+::url}
+
+Optional URL or PATH for nodes like HYPERLINK and IMAGE 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{ast_8h}{ast.\+h}}\end{DoxyCompactItemize}

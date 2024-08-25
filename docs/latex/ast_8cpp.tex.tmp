@@ -1,0 +1,120 @@
+\hypertarget{ast_8cpp}{}\doxysection{src/ast.cpp File Reference}
+\label{ast_8cpp}\index{src/ast.cpp@{src/ast.cpp}}
+{\ttfamily \#include \char`\"{}ast.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for ast.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$ \mbox{\hyperlink{ast_8cpp_a99793bcf16512d7dbd44d0c7985b9bbb}{create\+Node}} (\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}} type, std\+::string content, std\+::string url)
+\begin{DoxyCompactList}\small\item\em Definition of create\+Node function with URL parameter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8cpp_a067aaa22bccfb708e8eb08dc7d856a54}{add\+Child}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$parent, \mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$child)
+\begin{DoxyCompactList}\small\item\em Definition of add\+Child function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8cpp_ad1c5b88aed1409e83596fefc4137e81c}{print\+AST}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$node, int depth)
+\begin{DoxyCompactList}\small\item\em Definition of print\+AST function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ast_8cpp_ac97af3ee4c18deeb85d9d44c7a983858}{traverse\+AST}} (\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$node, std\+::ofstream \&out\+File)
+\begin{DoxyCompactList}\small\item\em Definition of traverse\+AST function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{ast_8cpp_a3aae672268b82468821857df97321de0}{node\+Type\+Names}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of node type names used to map node type to its name while printing the AST Tree structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ast_8cpp_a067aaa22bccfb708e8eb08dc7d856a54}\label{ast_8cpp_a067aaa22bccfb708e8eb08dc7d856a54}} 
+\index{ast.cpp@{ast.cpp}!addChild@{addChild}}
+\index{addChild@{addChild}!ast.cpp@{ast.cpp}}
+\doxysubsubsection{\texorpdfstring{addChild()}{addChild()}}
+{\footnotesize\ttfamily void add\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+
+
+Definition of add\+Child function. 
+
+Fucntion that adds a child node to a parent node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent node to which the child will be added. \\
+\hline
+{\em child} & The child node to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ast_8cpp_a99793bcf16512d7dbd44d0c7985b9bbb}\label{ast_8cpp_a99793bcf16512d7dbd44d0c7985b9bbb}} 
+\index{ast.cpp@{ast.cpp}!createNode@{createNode}}
+\index{createNode@{createNode}!ast.cpp@{ast.cpp}}
+\doxysubsubsection{\texorpdfstring{createNode()}{createNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structASTNode}{ASTNode}}$\ast$ create\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ast_8h_acac9cbaeea226ed297804c012dc12b16}{Node\+Type}}}]{type,  }\item[{std\+::string}]{content,  }\item[{std\+::string}]{url }\end{DoxyParamCaption})}
+
+
+
+Definition of create\+Node function with URL parameter. 
+
+Function to create a new AST node.
+
+\begin{DoxyReturn}{Returns}
+A pointer to the newly created AST node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ast_8cpp_ad1c5b88aed1409e83596fefc4137e81c}\label{ast_8cpp_ad1c5b88aed1409e83596fefc4137e81c}} 
+\index{ast.cpp@{ast.cpp}!printAST@{printAST}}
+\index{printAST@{printAST}!ast.cpp@{ast.cpp}}
+\doxysubsubsection{\texorpdfstring{printAST()}{printAST()}}
+{\footnotesize\ttfamily void print\+AST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{node,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+
+
+Definition of print\+AST function. 
+
+Function to print the AST structure to the console. \mbox{\Hypertarget{ast_8cpp_ac97af3ee4c18deeb85d9d44c7a983858}\label{ast_8cpp_ac97af3ee4c18deeb85d9d44c7a983858}} 
+\index{ast.cpp@{ast.cpp}!traverseAST@{traverseAST}}
+\index{traverseAST@{traverseAST}!ast.cpp@{ast.cpp}}
+\doxysubsubsection{\texorpdfstring{traverseAST()}{traverseAST()}}
+{\footnotesize\ttfamily void traverse\+AST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structASTNode}{ASTNode}} $\ast$}]{node,  }\item[{std\+::ofstream \&}]{out\+File }\end{DoxyParamCaption})}
+
+
+
+Definition of traverse\+AST function. 
+
+Function to traverse the AST and write the corresponding Markdown output to a file. 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ast_8cpp_a3aae672268b82468821857df97321de0}\label{ast_8cpp_a3aae672268b82468821857df97321de0}} 
+\index{ast.cpp@{ast.cpp}!nodeTypeNames@{nodeTypeNames}}
+\index{nodeTypeNames@{nodeTypeNames}!ast.cpp@{ast.cpp}}
+\doxysubsubsection{\texorpdfstring{nodeTypeNames}{nodeTypeNames}}
+{\footnotesize\ttfamily const char$\ast$ node\+Type\+Names\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}TEXT"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}START"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}SECTION"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}SUBSECTION"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}SUBSUBSECTION"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}BOLD"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}ITALICS"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}HRULE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}NEWLINE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}VERBATIM"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}HYPERLINK"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}IMAGE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}DOCUMENTCLASS"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}PACKAGE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}TITLE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}DATE"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}BEGINDOC"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}ENDDOC"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}BEGINUL"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}ENDUL"{}},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}ITEM"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Array of node type names used to map node type to its name while printing the AST Tree structure. 
+

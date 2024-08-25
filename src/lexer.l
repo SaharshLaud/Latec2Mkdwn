@@ -8,56 +8,55 @@ using namespace std;
 %option noyywrap
 %x VERBATIM_MODE  
 %%
-"\\documentclass"           { return DOCUMENTCLASS; }
+"\\documentclass"           { return DOCCLASS; }
 "\\usepackage"              { return PACKAGE; }
 "\\title"                   { return TITLE; }
 "\\date"                    { return DATE; }
-"\\begin{document}"         { return BEGIN_DOCUMENT; }
-"\\end{document}"           { return END_DOCUMENT; }
+"\\begin{document}"         { return BEGINDOC; }
+"\\end{document}"           { return ENDDOC; }
 
 "\\section"                 { return SECTION; }
 "\\subsection"              { return SUBSECTION; }
 "\\subsubsection"           { return SUBSUBSECTION; }
-"\\textbf"                  { return TEXTBF; }
-"\\textit"                  { return TEXTIT; }
-"\\hrule"                   { return HRULE; }
+
+"\\textbf"                  { return BOLD; }
+"\\textit"                  { return ITALIC; }
+
+"\\hrule"                   { return HLINE; }
 "\\par"                     { return PAR; }
-"\\href"                    { return HREF; }
+"\\href"                    { return LINK; }
 \n                          { return NEWLINE; }
 
 
-"\\begin{itemize}\n"          { cout<<"BEGINUL";return BEGINUL; }
-"\\end{itemize}\n"          { cout<<"ENDUL";return ENDUL; }
+"\\begin{itemize}\n"        { return BEGINUL; }
+"\\end{itemize}\n"          { return ENDUL; }
 
-"\\item"                     { cout<<"ITEM";return ITEM; }
+"\\item"                    {return ITEM; }
 
 
-"\\includegraphics"         { return INCLUDEGRAPHICS; }
-\[[^\]]*\]                  { yylval.str = strdup(yytext); return GRAPHICS_OPTIONS; }
-"{"                         { return OPEN_BRACE; }
-"}"                         { return CLOSE_BRACE; }
+"\\includegraphics"         { return PIC; }
+\[[^\]]*\]                  { yylval.str = strdup(yytext); return OPTION; }
+"{"                         { return OPENBRACE; }
+"}"                         { return CLOSEBRACE; }
 [^{}\\\[\]\n]+              { yylval.str = strdup(yytext); return TEXT; } 
 
 "\\begin{verbatim}" {
     BEGIN(VERBATIM_MODE);
     yylval.str = strdup("");
-    return BEGIN_VERBATIM;
+    return BEGINCODE;
 }
 
-<VERBATIM_MODE>([^\\]|\\[^e]|\\e[^n]|\\en[^d]|\\end[^{])+"\\end{verbatim}" {
+<VERBATIM_MODE>(?:[^\\]|\\.)*"\\end{verbatim}" {
     std::string content(yytext);
     content = content.substr(0, content.length() - strlen("\\end{verbatim}"));
 
-    // Remove leading \begin{verbatim}
     yylval.str = strdup(content.c_str());
     BEGIN(INITIAL);
-    return VERBATIM_TEXT;
+    return CODE;
 }
 
 <VERBATIM_MODE>.|\n {
-    // Accumulate verbatim text
     yylval.str = strdup(strcat(yylval.str, yytext));
 }
-
-.                           { /* ignore unrecognized characters */ }
+.                           { /** ignore unrecognized characters */ }
 %%

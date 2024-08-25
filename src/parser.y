@@ -11,12 +11,12 @@ ASTNode *root = nullptr;
     struct ASTNode *node;
 }
 
-%token SECTION SUBSECTION SUBSUBSECTION TEXTBF TEXTIT HRULE PAR BEGIN_VERBATIM END_VERBATIM HREF INCLUDEGRAPHICS
-%token OPEN_BRACE CLOSE_BRACE TEXT NEWLINE GRAPHICS_OPTIONS VERBATIM_TEXT
-%token DOCUMENTCLASS PACKAGE TITLE DATE BEGIN_DOCUMENT END_DOCUMENT
+%token SECTION SUBSECTION SUBSUBSECTION BOLD ITALIC HLINE PAR BEGINCODE END_VERBATIM LINK PIC
+%token OPENBRACE CLOSEBRACE TEXT NEWLINE OPTION CODE
+%token DOCCLASS PACKAGE TITLE DATE BEGINDOC ENDDOC
 %type <node> document elements element section subsection subsubsection bold italics hrule paragraph verbatim hyperlink image
 %type <node> docclass package title date begindoc enddoc unlist
-%type <str> TEXT VERBATIM_TEXT  /* Added VERBATIM_TEXT here */
+%type <str> TEXT CODE  /* Added CODE here */
 %token BEGINUL ENDUL ITEM
 %%
 
@@ -52,51 +52,51 @@ element:
     ;
 
 docclass:
-    DOCUMENTCLASS OPEN_BRACE TEXT CLOSE_BRACE NEWLINE { $$ = createNode(NODE_DOCUMENTCLASS, $3); }
+    DOCCLASS OPENBRACE TEXT CLOSEBRACE NEWLINE { $$ = createNode(NODE_DOCCLASS, $3); }
     ;
 
 package:
-    PACKAGE OPEN_BRACE TEXT CLOSE_BRACE NEWLINE { $$ = createNode(NODE_PACKAGE, $3); }
+    PACKAGE OPENBRACE TEXT CLOSEBRACE NEWLINE { $$ = createNode(NODE_PACKAGE, $3); }
     ;
 
 title:
-    TITLE OPEN_BRACE TEXT CLOSE_BRACE NEWLINE { $$ = createNode(NODE_TITLE, $3); }
+    TITLE OPENBRACE TEXT CLOSEBRACE NEWLINE { $$ = createNode(NODE_TITLE, $3); }
     ;
 
 date:
-    DATE OPEN_BRACE TEXT CLOSE_BRACE NEWLINE { $$ = createNode(NODE_DATE, $3); }
+    DATE OPENBRACE TEXT CLOSEBRACE NEWLINE { $$ = createNode(NODE_DATE, $3); }
     ;
 
 begindoc:
-    BEGIN_DOCUMENT NEWLINE { $$ = createNode(NODE_BEGIN_DOC, ""); }
+    BEGINDOC NEWLINE { $$ = createNode(NODE_BEGINDOC, ""); }
     ;
 
 enddoc:
-    END_DOCUMENT { $$ = createNode(NODE_END_DOC, ""); }
+    ENDDOC { $$ = createNode(NODE_ENDDOC, ""); }
     ;
 
 section:
-    SECTION OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_SECTION, $3); }
+    SECTION OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_SECTION, $3); }
     ;
 
 subsection:
-    SUBSECTION OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_SUBSECTION, $3); }
+    SUBSECTION OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_SUBSECTION, $3); }
     ;
 
 subsubsection:
-    SUBSUBSECTION OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_SUBSUBSECTION, $3); }
+    SUBSUBSECTION OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_SUBSUBSECTION, $3); }
     ;
 
 bold:
-    TEXTBF OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_BOLD, $3); }
+    BOLD OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_BOLD, $3); }
     ;
 
 italics:
-    TEXTIT OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_ITALICS, $3); }
+    ITALIC OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_ITALICS, $3); }
     ;
 
 hrule:
-    HRULE { $$ = createNode(NODE_HRULE, ""); }
+    HLINE { $$ = createNode(NODE_HRULE, ""); }
     ;
 
 paragraph:
@@ -104,17 +104,17 @@ paragraph:
     ;
 
 verbatim:
-    BEGIN_VERBATIM VERBATIM_TEXT { $$ = createNode(NODE_VERBATIM, $2); }
+    BEGINCODE CODE { $$ = createNode(NODE_VERBATIM, $2); }
     ;
 
 
 hyperlink:
-    HREF OPEN_BRACE TEXT CLOSE_BRACE OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_HYPERLINK, $6, $3); }
+    LINK OPENBRACE TEXT CLOSEBRACE OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_HYPERLINK, $6, $3); }
     ;
 
 image:
-    INCLUDEGRAPHICS GRAPHICS_OPTIONS OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_IMAGE, "", $4); }
-    | INCLUDEGRAPHICS OPEN_BRACE TEXT CLOSE_BRACE { $$ = createNode(NODE_IMAGE, "", $3); }
+    PIC OPTION OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_IMAGE, "", $4); }
+    | PIC OPENBRACE TEXT CLOSEBRACE { $$ = createNode(NODE_IMAGE, "", $3); }
 
 unlist: BEGINUL { $$ = createNode(NODE_BEGINUL, ""); }
         | ENDUL  { $$ = createNode(NODE_ENDUL, ""); }

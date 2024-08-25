@@ -10,7 +10,7 @@ extern int yyparse();
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cerr << "Usage: " << argv[0] << " input.tex output.md" << std::endl;
+        std::cerr << "Format: " << argv[0] << " input.tex output.md" << std::endl;
         return 1;
     }
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 
     int parseResult = yyparse();
     if (parseResult == 0 && root != nullptr) {
-        std::cout << "Parsing successful. AST structure:" << std::endl;
+        std::cout << "Parsing has been successful. AST structure:" << std::endl;
         printAST(root);
 
         std::ofstream outFile(argv[2]);

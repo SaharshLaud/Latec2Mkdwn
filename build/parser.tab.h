@@ -57,26 +57,29 @@ extern int yydebug;
     SECTION = 258,                 /* SECTION  */
     SUBSECTION = 259,              /* SUBSECTION  */
     SUBSUBSECTION = 260,           /* SUBSUBSECTION  */
-    TEXTBF = 261,                  /* TEXTBF  */
-    TEXTIT = 262,                  /* TEXTIT  */
-    HRULE = 263,                   /* HRULE  */
+    BOLD = 261,                    /* BOLD  */
+    ITALIC = 262,                  /* ITALIC  */
+    HLINE = 263,                   /* HLINE  */
     PAR = 264,                     /* PAR  */
-    BEGIN_VERBATIM = 265,          /* BEGIN_VERBATIM  */
+    BEGINCODE = 265,               /* BEGINCODE  */
     END_VERBATIM = 266,            /* END_VERBATIM  */
-    HREF = 267,                    /* HREF  */
-    INCLUDEGRAPHICS = 268,         /* INCLUDEGRAPHICS  */
-    OPEN_BRACE = 269,              /* OPEN_BRACE  */
-    CLOSE_BRACE = 270,             /* CLOSE_BRACE  */
+    LINK = 267,                    /* LINK  */
+    PIC = 268,                     /* PIC  */
+    OPENBRACE = 269,               /* OPENBRACE  */
+    CLOSEBRACE = 270,              /* CLOSEBRACE  */
     TEXT = 271,                    /* TEXT  */
     NEWLINE = 272,                 /* NEWLINE  */
-    GRAPHICS_OPTIONS = 273,        /* GRAPHICS_OPTIONS  */
-    VERBATIM_TEXT = 274,           /* VERBATIM_TEXT  */
-    DOCUMENTCLASS = 275,           /* DOCUMENTCLASS  */
+    OPTION = 273,                  /* OPTION  */
+    CODE = 274,                    /* CODE  */
+    DOCCLASS = 275,                /* DOCCLASS  */
     PACKAGE = 276,                 /* PACKAGE  */
     TITLE = 277,                   /* TITLE  */
     DATE = 278,                    /* DATE  */
-    BEGIN_DOCUMENT = 279,          /* BEGIN_DOCUMENT  */
-    END_DOCUMENT = 280             /* END_DOCUMENT  */
+    BEGINDOC = 279,                /* BEGINDOC  */
+    ENDDOC = 280,                  /* ENDDOC  */
+    BEGINUL = 281,                 /* BEGINUL  */
+    ENDUL = 282,                   /* ENDUL  */
+    ITEM = 283                     /* ITEM  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -90,7 +93,7 @@ union YYSTYPE
     char *str;
     struct ASTNode *node;
 
-#line 94 "build/parser.tab.h"
+#line 97 "build/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
