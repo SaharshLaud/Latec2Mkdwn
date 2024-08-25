@@ -28,6 +28,11 @@ Latex Features Implemented:
 make clean
 ```
 
+* Testing:
+```
+make test
+```
+
 * Make sure that "run.sh" has execute permissions. You can set this with:
 ```
 chmod +x run.sh
