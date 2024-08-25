@@ -2,39 +2,45 @@
 #include "ast.h"
 #include "parser.tab.h"
 #include <fstream>
+using namespace std;
 
 extern ASTNode* root;
 extern FILE* yyin;
 extern int yyparse();
 
-void parse_string(const std::string& input) {
+void parse_string(const std::string& input) 
+{
     yyin = fmemopen((void*)input.c_str(), input.length(), "r");
     yyparse();
     fclose(yyin);
 }
 
-void get_markdown_output(const std::string& filename) {
-    std::string outputDir = "tests/";
+void get_markdown_output(const std::string& filename) 
+{
+    string outputDir = "tests/";
 
-    std::string outputPath = outputDir + "/" + filename;
-    std::ofstream outFile(outputPath);
-    if (!outFile) {
-        std::cerr << "Error: Cannot open " << outputPath << " for writing" << std::endl;
+    string outputPath = outputDir + "/" + filename;
+    ofstream outFile(outputPath);
+    if (!outFile) 
+    {
+        cerr<<"Error: Cannot open "<<outputPath<<" for writing"<<endl;
         return;
     }
     traverseAST(root, outFile);
     outFile.close();
 }
 
-std::string read_file(const std::string& filename) {
-    std::string filePath = "tests/" + filename;
-    std::ifstream file(filePath);
-    if (!file) {
-        std::cerr << "Error: Cannot open file";
+string read_file(const string& filename) 
+{
+    string filePath = "tests/" + filename;
+    ifstream file(filePath);
+    if (!file) 
+    {
+        cerr << "Error: Cannot open file";
         return "";
     }
-    std::stringstream buffer;
-    buffer << file.rdbuf();
+    stringstream buffer;
+    buffer<<file.rdbuf();
     return buffer.str();
 }
 
